@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Fri, 25 Dec 2015 17:26:59 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=lykoyo450et0shyfptnewjfk; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/html; charset=shift_jis
+Content-Length: 83
+Set-Cookie: TS01c1468f=01b2fc18ec24dc72fce1dc6ca61e4bd27c00f89e64af06ecd572212b26af8dd3350b8e136830ecefae946fa117576184eeb61220eb; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?>
+<result>
+	<status>-2</status>
+	<info>「shopID」パラメータ値無し。</info>
+	<econNo></econNo>
+</result>
