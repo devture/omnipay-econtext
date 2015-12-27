@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 06:41:07 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=hseq4ri342jvni45td0pfp55; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 146
+Set-Cookie: TS01c1468f=01b2fc18ec6caeeac81901055928f8b838f5fe5b9a8d44c9b96d6c43eadef3c06a76cda8e9a31cc959825969da2cdead3df592697c; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>-2</status><info>「chkCode」パラメータ値無し。</info><infoCode>E0004</infoCode></result>

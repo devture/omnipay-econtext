@@ -50,9 +50,13 @@ class CreateCardMerchantRequest extends BaseMerchantRequest {
 		//May throw \Omnipay\Common\Exception\InvalidRequestException
 		$this->validate('card');
 
+		// @codeCoverageIgnoreStart
+		//Omnipay already makes sure that the card is either NULL or a valid \Omnipay\Common\CreditCard object.
+		//This is just an extra defensive check.
 		if (!($this->getCard() instanceof \Omnipay\Common\CreditCard)) {
 			throw new \Omnipay\Common\Exception\InvalidRequestException('Invalid credit card object.');
 		}
+		// @codeCoverageIgnoreEnd
 
 		if (!$this->getTestMode()) {
 			//May throw \Omnipay\Common\Exception\InvalidCreditCardException

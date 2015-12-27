@@ -64,20 +64,24 @@ abstract class BaseMerchantRequest extends AbstractRequest {
 			throw new \Omnipay\Common\Exception\InvalidResponseException($e->getMessage());
 		}
 
+		// @codeCoverageIgnoreStart
+		//This will never be non-200, or Guzzle would've thrown above.
+		//It's just an extra defensive check. Non-testable, unless Guzzle's behavior changes.
+		if ($httpResponse->getStatusCode() !== 200) {
+			throw new \Omnipay\Common\Exception\InvalidResponseException(sprintf(
+				'Gateway returned non-OK HTTP response code: [HTTP %d]: %s',
+				$httpResponse->getStatusCode(),
+				$httpResponse->getBody(true)
+			));
+		}
+		// @codeCoverageIgnoreEnd
+
 		try {
 			$xml = $httpResponse->xml();
 		} catch (\RuntimeException $e) {
 			throw new \Omnipay\Common\Exception\InvalidResponseException(sprintf(
 				'Gateway returned non-XML response: %s: [HTTP %d]: %s',
 				$e->getMessage(),
-				$httpResponse->getStatusCode(),
-				$httpResponse->getBody(true)
-			));
-		}
-
-		if ($httpResponse->getStatusCode() !== 200) {
-			throw new \Omnipay\Common\Exception\InvalidResponseException(sprintf(
-				'Gateway returned non-OK HTTP response code: [HTTP %d]: %s',
 				$httpResponse->getStatusCode(),
 				$httpResponse->getBody(true)
 			));

@@ -87,7 +87,10 @@ class PurchaseMerchantRequest extends BaseMerchantRequest {
 			//Purchase using an already server-persisted card
 			$data['fncCode'] = '10';
 			$data['cduserID'] = $this->getCardReference();
-		} else if ($this->getCard() instanceof \Omnipay\Common\CreditCard) {
+			return $data;
+		}
+
+		if ($this->getCard() instanceof \Omnipay\Common\CreditCard) {
 			//Purchase using an as-of-yet non-server-persisted card
 
 			//Effectively, behind the scenes, the server will persist the card (whose `cardReference` we have prepared)
@@ -98,11 +101,10 @@ class PurchaseMerchantRequest extends BaseMerchantRequest {
 			$data = array_merge($data, \Omnipay\Econtext\Util\Helper::cardToApiParameters($this->getCard()));
 			//No idea why this is a required argument in this case and not for fncCode=10 (CreateCardMerchantRequest).
 			$data['cd3secFlg'] = 0;
-		} else {
-			throw new \Omnipay\Common\Exception\InvalidRequestException('A `cardReference` or a `card` key needs to be provided.');
+			return $data;
 		}
 
-		return $data;
+		throw new \Omnipay\Common\Exception\InvalidRequestException('A `cardReference` or a `card` key needs to be provided.');
 	}
 
 	/**

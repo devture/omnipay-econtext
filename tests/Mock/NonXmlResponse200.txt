@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 06:56:30 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=nr1cqzj5mk0stxit4ijffnmu; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 157
+Set-Cookie: TS01c1468f=01b2fc18ec7fba055de72edc2d1ee4ec97dc91baec75f750232b34aa1b99c1bd96df21bf73af6b4b7b7910380a4c47637c7ce6ee29; Path=/
+
+it's not XML by any means..

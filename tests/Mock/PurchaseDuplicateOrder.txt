@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 08:28:37 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=14xyk2qh3f342gua4wpuko3g; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 141
+Set-Cookie: TS01c1468f=01b2fc18ecbed89d233bea0f840a36fa166f5b5d47114097acd66315c21988834a69a367452ac16a7c92d36dc7b96af34f464d4bed; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>-2</status><info>サイト注文番号重複エラー</info><infoCode>E1111</infoCode></result>

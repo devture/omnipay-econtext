@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 06:33:06 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=juqo4155etmjbz55uakwbdj5; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/html; charset=shift_jis
+Content-Length: 97
+Set-Cookie: TS01c1468f=01b2fc18ecc7f05853cf6d46dd8dab9b64cd8b9068e2aea42321c5f99124f08772cbfc87df7603f4f9836ae688b3f784b4bf869282; Path=/
+
+<status>-2</status>
+<info>パラメータチェックエラー「shopID:12345」</info>
+<econNo></econNo>

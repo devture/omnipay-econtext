@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 08:07:26 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=hmc5l1mqmsn1ur2zevstp43h; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 384
+Set-Cookie: TS01c1468f=01b2fc18ec0c22385185c4e3a6194e765393223b8073c719ab80a5540c67508812ce55411ea73dd9368a34341e49145b3dcea5a65c; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>1</status><info>正常</info><infoCode>00000</infoCode><econNo>9999999</econNo><econCardno4>1111</econCardno4><cardExpdate></cardExpdate><cduserID></cduserID><shimukeCD>2S63046</shimukeCD><shoninCD>111111</shoninCD><ecnToken></ecnToken><cardentryURL></cardentryURL><paymentURL></paymentURL><directpayURL></directpayURL></result>

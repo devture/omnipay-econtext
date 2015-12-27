@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 06:42:41 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=biijcfejmphnng55bukawfzq; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 157
+Set-Cookie: TS01c1468f=01b2fc18ec7bf81befee253b4bb79d5bda8b5621bc92c1a10949e62b156ccb3ecdfac86f59b15172edc05f01fa9dd25688af15e5c4; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>-2</status><info>パラメータチェックエラー「chkCode:1234」</info><infoCode>E1004</infoCode></result>

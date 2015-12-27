@@ -1,0 +1,10 @@
+HTTP/1.1 404 Not Found
+Date: Sun, 27 Dec 2015 06:56:30 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=nr1cqzj5mk0stxit4ijffnmu; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 157
+Set-Cookie: TS01c1468f=01b2fc18ec7fba055de72edc2d1ee4ec97dc91baec75f750232b34aa1b99c1bd96df21bf73af6b4b7b7910380a4c47637c7ce6ee29; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>1</status><info>³í</info><infoCode>00000</infoCode><econNo>9999999</econNo><econCardno4></econCardno4><cardExpdate></cardExpdate><cduserID></cduserID><shimukeCD>2S63046</shimukeCD><shoninCD></shoninCD><ecnToken></ecnToken><cardentryURL></cardentryURL><paymentURL></paymentURL><directpayURL></directpayURL></result>

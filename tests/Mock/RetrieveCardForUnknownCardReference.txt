@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Sun, 27 Dec 2015 09:00:13 GMT
+X-Powered-By: ASP.NET
+Set-Cookie: ASP.NET_SessionId=04kzec45baruhlzs4yixwt3m; path=/; HttpOnly
+Cache-Control: private
+Content-Type: text/xml; charset=shift_jis
+Content-Length: 129
+Set-Cookie: TS01c1468f=01b2fc18eccdaf15b758bab25fdc8c584809020bcb7a4fb5ee53cb44b7a9723dff99dfa90f5a7086f4d6a6ec67a38dd472ebd838e3; Path=/
+
+<?xml version="1.0" encoding="shift_jis"?><result><status>-2</status><info>会員登録なし</info><infoCode>C2101</infoCode></result>
