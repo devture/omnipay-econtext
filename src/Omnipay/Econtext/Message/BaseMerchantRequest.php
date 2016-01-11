@@ -95,7 +95,7 @@ abstract class BaseMerchantRequest extends AbstractRequest {
 	 * @throws \Omnipay\Econtext\Exception\InvalidCredentialsException - if invalid gateway credentials were used (fragile)
 	 * @return BaseMerchantResponse
 	 */
-	private function createResponseOrThrow(\SimpleXMLElement $xml) {
+	protected function createResponseOrThrow(\SimpleXMLElement $xml) {
 		//Let's try to catch certain important responses and convert them to exceptions.
 
 		//If an invalid shopID is provided, `info` would be: パラメータチェックエラー「shopID:123456」

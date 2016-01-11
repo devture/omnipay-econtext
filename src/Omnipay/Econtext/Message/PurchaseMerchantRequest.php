@@ -7,15 +7,6 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 class PurchaseMerchantRequest extends BaseMerchantRequest {
 
 	/**
-	 * @var string - the `orderID` string that we'll attempt to create/purchase
-	 *
-	 * That is to say, `orderID` generation happens here (not on the API server).
-	 * We should be careful not to generate duplicates. Especially since values cannot be reused.
-	 * (creating and deleting an order leaves a permanent trace on the server and makes said orderID non-reusable).
-	 */
-	private $generatedOrderId;
-
-	/**
 	 * @var string - the `cardReference` string that we'll attempt to create
 	 */
 	private $generatedCardReference;
@@ -23,20 +14,27 @@ class PurchaseMerchantRequest extends BaseMerchantRequest {
 	public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest) {
 		parent::__construct($httpClient, $httpRequest);
 
-		$this->generatedOrderId = (string) \Ramsey\Uuid\Uuid::uuid1();
-
-		//May or may not be used below, depending on whether `card` charging is done.
-		//Not needed for `cardReference` charges.
 		$this->generatedCardReference = (string) \Ramsey\Uuid\Uuid::uuid1();
 	}
 
 	/**
-	 * Returns the here-generated card reference id that we attempt to create on the server
-	 *
-	 * @return string
+	 * @see \Omnipay\Common\Message\AbstractRequest::initialize()
 	 */
-	public function getGeneratedOrderId() {
-		return $this->generatedOrderId;
+	public function initialize(array $parameters = array()) {
+		parent::initialize($parameters);
+
+		if (!$this->getTransactionReference()) {
+			/**
+			 * Generate the `orderID` string that we'll attempt to create/purchase
+			 *
+			 * That is to say, `orderID` generation happens here (not on the API server).
+			 * We should be careful not to generate duplicates. Especially since values cannot be reused.
+			 * (creating and deleting an order leaves a permanent trace on the server and makes said orderID non-reusable).
+			 */
+			$this->setTransactionReference((string) \Ramsey\Uuid\Uuid::uuid1());
+		}
+
+		return $this;
 	}
 
 	/**
@@ -75,10 +73,11 @@ class PurchaseMerchantRequest extends BaseMerchantRequest {
 	 */
 	public function getData() {
 		$this->validate('amount');
+		$this->validate('transactionReference');
 
 		$data = array();
 		$data['paymtCode'] = 'C20';
-		$data['orderID'] = $this->getGeneratedOrderId();
+		$data['orderID'] = $this->getTransactionReference();
 		$data['ordAmount'] = $this->getParameter('amount');
 		$data['ordAmountTax'] = ($this->getParameter('amountTax') ?: 0);
 		$data['itemName'] = $this->getDescription();
@@ -113,10 +112,32 @@ class PurchaseMerchantRequest extends BaseMerchantRequest {
 	 * @throws \Omnipay\Common\Exception\InvalidRequestException - when either the cardReference or card parameter is missing
 	 * @throws \Omnipay\Common\Exception\InvalidResponseException - when the API call fails or returns bad data
 	 * @throws \Omnipay\Econtext\Exception\InvalidCredentialsException - if invalid gateway credentials were used (fragile)
+	 * @throws \Omnipay\Econtext\Exception\BadTransactionReferenceException - if the transaction had already been done before or if a faulty transactionReference was used
 	 * @return \Omnipay\Econtext\Message\PurchaseMerchantResponse
 	 */
 	public function send() {
 		return parent::send();
+	}
+
+	/**
+	 * @param \SimpleXMLElement $xml
+	 * @throws \Omnipay\Econtext\Exception\InvalidCredentialsException - if invalid gateway credentials were used (fragile)
+	 * @return \Omnipay\Econtext\Message\PurchaseMerchantResponse
+	 */
+	protected function createResponseOrThrow(\SimpleXMLElement $xml) {
+		//We want to detect if a duplicate-number (transactionReference) error happened.
+		//However, we can't do that, as the error code is the same if we send a bad one
+		//or a duplicate.
+		//Since we self-generate the references in the same manner (and they should always be unique),
+		//this should only happen in the other case - when the were asked to perform a charge
+		//for a custom transactionReference, which turned out to be bad/duplicate.
+		if ((string) $xml->infoCode === BaseMerchantResponse::INFO_CODE_BAD_ORDER_NUMBER) {
+			throw new \Omnipay\Econtext\Exception\BadTransactionReferenceException(sprintf(
+				'Bad (possibly duplicate) transaction reference (original error: %s)',
+				(string) $xml->info
+			));
+		}
+		return parent::createResponseOrThrow($xml);
 	}
 
 }

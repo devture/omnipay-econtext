@@ -70,7 +70,14 @@ class MerchantGateway extends AbstractGateway {
 	/**
 	 * Performs a purchase immediately.
 	 *
-	 * @param array $parameters - could contain a 'cardReference' key (string) or a `card` key (\Omnipay\Common\CreditCard object)
+	 * The $parameters array could contain a 'cardReference' key (string)
+	 * or a `card` key (\Omnipay\Common\CreditCard object).
+	 *
+	 * This method generates its own transaction references.
+	 * However, you can provide your own `transactionReference` parameter,
+	 * should you wish to use it as a way to perform "idempotent charging".
+	 *
+	 * @param array $parameters
 	 * @return \Omnipay\Econtext\Message\PurchaseMerchantRequest
 	 */
 	public function purchase(array $parameters = array()) {

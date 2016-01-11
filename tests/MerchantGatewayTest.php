@@ -229,6 +229,16 @@ class MerchantGatewayTest extends GatewayTestCase {
 		$this->assertSame(null, $response->getCardReference());
 	}
 
+	public function testPurchaseCanBeUsedForGeneratingTransactionReferences() {
+		$transactionRef1 = $this->gateway->purchase()->getTransactionReference();
+		$this->assertSame(36, strlen($transactionRef1));
+
+		$transactionRef2 = $this->gateway->purchase()->getTransactionReference();
+		$this->assertSame(36, strlen($transactionRef2));
+
+		$this->assertNotSame($transactionRef1, $transactionRef2);
+	}
+
 	public function testPurchaseRequiresAndWorksWithIntegerAmounts() {
 		$transaction = $this->gateway->purchase();
 		try {
@@ -284,7 +294,7 @@ class MerchantGatewayTest extends GatewayTestCase {
 		$this->assertTrue($response->isSuccessful());
 		$this->assertSame($response->getCardReference(), 'abcd');
 		$this->assertNotNull($response->getTransactionReference());
-		$this->assertSame($response->getRequest()->getGeneratedOrderId(), $response->getTransactionReference());
+		$this->assertSame($response->getRequest()->getTransactionReference(), $response->getTransactionReference());
 	}
 
 	public function testPurchaseSelfGeneratesDifferentTransactionReferences() {
@@ -328,14 +338,29 @@ class MerchantGatewayTest extends GatewayTestCase {
 		$this->assertSame($generatedCardReference, $response->getCardReference());
 	}
 
-	public function testPurchaseWithDuplicateOrderFailureIsCaught() {
+	public function testPurchaseWithDuplicateOrderThrowsDuplicateException() {
 		$this->setMockHttpResponse('PurchaseDuplicateOrder.txt');
 		$transaction = $this->gateway->purchase(array('amount' => 500, 'card' => $this->card));
 		$generatedCardReference = $transaction->getGeneratedCardReference();
+		$this->setExpectedException('\Omnipay\Econtext\Exception\BadTransactionReferenceException');
 		$response = $transaction->send();
-		$this->assertFalse($response->isSuccessful());
-		$this->assertNull($response->getCardReference());
-		$this->assertNull($response->getTransactionReference());
+	}
+
+	public function testPurchaseWithOwnTransactionReference() {
+		$transactionReference = 'my-custom-transaction-ref';
+		$this->setMockHttpResponse('PurchaseWithExistingCardSuccess.txt');
+		$transaction = $this->gateway->purchase(array(
+			'amount' => 500,
+			'cardReference' => 'abcd',
+			'transactionReference' => $transactionReference,
+		));
+
+		$this->assertSame($transactionReference, $transaction->getTransactionReference());
+
+		$response = $transaction->send();
+		$this->assertTrue($response->isSuccessful());
+		$this->assertSame($response->getCardReference(), 'abcd');
+		$this->assertSame($transactionReference, $response->getTransactionReference());
 	}
 
 	public function testRefundRequiresTransactionReference() {

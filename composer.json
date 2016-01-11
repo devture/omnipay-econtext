@@ -25,7 +25,8 @@
 		"ramsey/uuid": "3.1.*"
     },
     "require-dev": {
-		"omnipay/tests": "~2.0"
+		"omnipay/tests": "~2.0",
+		"symfony/var-dumper": "*"
     },
     "autoload": {
         "psr-0": {

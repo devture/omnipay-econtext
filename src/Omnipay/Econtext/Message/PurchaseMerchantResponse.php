@@ -14,7 +14,7 @@ class PurchaseMerchantResponse extends BaseMerchantResponse {
 		if (!$this->isSuccessful()) {
 			return null;
 		}
-		return $this->getRequest()->getGeneratedOrderId();
+		return $this->getRequest()->getTransactionReference();
 	}
 
 	/**
