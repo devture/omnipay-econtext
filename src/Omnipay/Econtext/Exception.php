@@ -1,6 +1,6 @@
 <?php
 namespace Omnipay\Econtext;
 
-class Exception extends \Exception {
+class Exception extends \Omnipay\Common\Exception {
 
 }
