@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Some Econtext API responses do not return valid XML.
- * Oone instance that it happens is when the shopID parameter's value is incorrect.
+ * One instance that it happens is when the shopID parameter's value is incorrect.
  *
  * When it happens, the header tag is missing (not a big deal).
  * But more importantly, multiple tags are returned at the top-level, instead of being wrapped

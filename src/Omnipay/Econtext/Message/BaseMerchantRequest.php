@@ -101,7 +101,7 @@ abstract class BaseMerchantRequest extends AbstractRequest {
 		//If an invalid shopID is provided, `info` would be: パラメータチェックエラー「shopID:123456」
 		//If an empty shopID is provided, `info` would be: 「shopID」パラメータ値無し。
 		//Unfortunately, `infoCode` is empty, so we have to rely on string matching, which is idiotic.
-		//This detection code is fragile and prone to breakage. Shame. Blame uptream.
+		//This detection code is fragile and prone to breakage. Shame. Blame Econtext.
 		if ((string) $xml->status === '-2' && (string) $xml->infoCode === '' && strpos((string) $xml->info, 'shopID')) {
 			throw new \Omnipay\Econtext\Exception\InvalidCredentialsException(sprintf(
 				'Invalid siteId: %s (original error: %s)',
